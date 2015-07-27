@@ -1,7 +1,6 @@
-workspace()
-include("functions.jl")
+#include("functions.jl")
 #import MyQuadtree
-#using MyQuadtree
+using MyQuadtree
 
 ## Quadtree used
 quad = new_quadtree(0,0,160,160)
