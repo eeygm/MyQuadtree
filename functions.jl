@@ -1,4 +1,4 @@
-#module MyQuadtree
+module MyQuadtree
 
 include("types.jl")
 include("functions/new_quadtree.jl")
@@ -18,6 +18,5 @@ trace_index = Int64[]
 level = 0
 max_level_quadtree = [0]
 cont = 1
-#returned_points = Shape[]
 
-#end
+end
