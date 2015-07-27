@@ -29,16 +29,6 @@ end
 ## Implement == (isequal) function for Shapes
 ==(a::Shape, b::Shape) = a.bounds == b.bounds
 
-function sort(shape::Set{Shape})
-    min = Inf
-    max = -Inf
-    for s in shape
-        min = s.bounds[1,1] < min ? s.bounds[1,1] : min
-        max = s.bounds[1,1] > max ? s.bounds[1,1] : max
-    end
-    return min,max
-end
-
 type Quadtree
     x0
     y0

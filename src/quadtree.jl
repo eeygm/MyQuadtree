@@ -1,5 +1,3 @@
-#include("functions.jl")
-#import MyQuadtree
 using MyQuadtree
 
 ## Quadtree used
@@ -39,17 +37,9 @@ triangle_test = Shape([40 140; 70 140; 60 70])
 #insert!(quad, shape_big)
 #insert!(quad, shape_)
 
-## Retrieve the point, see if there are colisions and save it on returned_objects
-#retrieve(quad, returned_objects)
-
-## Print the returned objects that had colisions
-#println(returned_objects)
-
 ## Insert random objects inside the tree and retrieve them
-
-
 const MAX_SIZE = 5
-k = 7
+k = 5
 shapes_test = Array(Shape, 10^k)
 
 @time for i = 1:10^k
@@ -72,16 +62,5 @@ end
     insert!(quad, shapes_test[i])
 end
 @time retrieve!(quad, triangle_test)
-
-#println("quad.objects: ", length(quad.objects))
-#println("quad.sw.objects: ", length(quad.sw.objects))
-#println("quad.sw.sw.objects: ", length(quad.sw.sw.objects))
-#println()
-
-#=
-for l in list_of_objects
-    println(l)
-end
-=#
 
 nothing
