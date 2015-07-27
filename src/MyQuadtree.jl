@@ -1,16 +1,28 @@
 module MyQuadtree
 
+export  Rectangle,
+        Shape,
+        Quadtree,
+        Point,
+
+        new_quadtree,
+        insert!,
+        get_trace_index_shape,
+        split,
+        get_index,
+        retrieve!
+
 include("types.jl")
 include("functions/new_quadtree.jl")
 include("functions/insert.jl")
 include("functions/get_trace_index_shape.jl")
 include("functions/split.jl")
 include("functions/get_index.jl")
-include("functions/get_rectangle.jl")
+#include("functions/get_rectangle.jl")
 #include("functions/retrieve.jl")
 include("functions/retrieve_2.jl")
 
-include("functions/get_points_from_shape.jl")
+#include("functions/get_points_from_shape.jl")
 
 list_of_objects = Set{Shape}()
 trace_index_fake_object = Int64[]
