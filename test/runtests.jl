@@ -1,5 +1,5 @@
 using MyQuadtree
-using Base.Test
+#using Base.Test
 
 ## Quadtree used
 quad = Quadtree(0,0,160,160)
@@ -57,7 +57,7 @@ shapes_test = Array(Shape, 10^k)
 end
 
 @time for i = 1:10^k
-    insert!(quad, shapes_test[i])
+    MyQuadtree.insert!(quad, shapes_test[i])
 end
 
 println(@time length(retrieve!(quad, shape_big)))
