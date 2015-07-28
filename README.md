@@ -1,2 +1,2 @@
 # MyQuadtree
-https://travis-ci.org/eeygm/MyQuadtree.svg?branch=master
+<img src="https://travis-ci.org/eeygm/MyQuadtree.svg?branch=master"></img>
