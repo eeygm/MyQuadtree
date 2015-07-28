@@ -49,6 +49,11 @@ type Quadtree
         new(bounds.x0, bounds.y0, bounds.x0 + bounds.width, bounds.y0 + bounds.height, bounds, Shape(bounds), objects)
     end
 
+    function Quadtree(x0::Int64, y0::Int64, x1::Int64, y1::Int64)
+        objects = Shape[]
+        new(x0,y0,x1,y1,Rectangle(x0,y0,x1-x0,y1-y0),Shape(Rectangle(x0,y0,x1-x0,y1-y0)), objects)
+    end
+
     function Quadtree(bounds::Rectangle,
                         ne1::Quadtree,
                         nw1::Quadtree,

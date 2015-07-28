@@ -1,17 +1,20 @@
-function retrieve!(quad::Quadtree, shape::Shape, number_of_points::Int64)
+function retrieve!(quad::Quadtree, shape_test::Shape)
+    global points_shape = Point[]
+    global points_shape_test = Point[]
 
-    global points = get_points_from_shape(shape, number_of_points)
+    for i = 1:length(quad.shape.bounds[:,1])
+        push!(points_shape, Point(shape.bounds[i,:]))
+    end
 
-    for pt in points
+    for i = 1:length(shape_test.bounds[:,1])
+        push!(points_shape_test, Point(shape_test.bounds[i,:]))
+    end
 
-        trace_index_fake_object = get_trace_index_shape(quad.rect, pt)
+    cont = 1
+    retrieve_inside!(quad::Quadtree, shape_test::Shape)
+        trace_index2 = get_index(shape.rect, shape_test)
 
-        cont = 1
-        function retrieve_inside!(quad::Quadtree, shape::Shape)
-
-            for i = 1:length(quad.objects)
-                push!(list_of_objects, quad.objects[i])
-            end
+        if trace_index2 != -1
 
             if(cont <= max_level_quadtree[1] && isdefined(trace_index_fake_object, cont))
 
@@ -38,12 +41,7 @@ function retrieve!(quad::Quadtree, shape::Shape, number_of_points::Int64)
 
             end
 
-            return nothing
-
+            return "Found a collision (shape_test inside shape)"
         end
-        retrieve_inside!(quad, shape)
 
-    end
-
-    return nothing
 end

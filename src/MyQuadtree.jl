@@ -5,26 +5,21 @@ export  Rectangle,
         Quadtree,
         Point,
 
-        new_quadtree,
         insert!,
-        get_trace_index_shape,
-        split,
-        get_index,
-        retrieve!
+        #get_trace_index_shape,
+        #split,
+        #get_index,
+        retrieve!,
+        list_of_objects
 
 include("types.jl")
-include("functions/new_quadtree.jl")
 include("functions/insert.jl")
 include("functions/get_trace_index_shape.jl")
 include("functions/split.jl")
 include("functions/get_index.jl")
-#include("functions/get_rectangle.jl")
-#include("functions/retrieve.jl")
-include("functions/retrieve_2.jl")
+include("functions/retrieve.jl")
 
-#include("functions/get_points_from_shape.jl")
-
-list_of_objects = Set{Shape}()
+#list_of_objects = Set{Shape}()
 trace_index_fake_object = Int64[]
 trace_index = Int64[]
 level = 0
