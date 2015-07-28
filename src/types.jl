@@ -1,3 +1,8 @@
+export Rectangle,
+        Shape,
+        Quadtree,
+        Point
+
 immutable Rectangle
     x0::Real
     y0::Real

@@ -1,7 +1,6 @@
 function get_trace_index_shape(rect::Rectangle, shape::Shape)
     global level
     global trace_index
-    #global max_level_quadtree
     global trace_index_fake_object
 
     index = get_index(rect, shape)
