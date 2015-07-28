@@ -15,8 +15,8 @@ function retrieve!(quad::Quadtree, shape::Shape)
         end
 
         ## Center of quadtree
-        xx = (maximum(quad.shape.bounds[:,1]) + minimum(quad.shape.bounds[:,1])) / 2
-        yy = (maximum(quad.shape.bounds[:,2]) + minimum(quad.shape.bounds[:,2])) / 2
+        xx = (quad.x0 + quad.x1) / 2
+        yy = (quad.y0 + quad.y1) / 2
         ## Test whether the half-quad is inside the shape
         for i = 0:length(shape.bounds[:,1])-3
             Area = 1/2*(-points_shape[2+i].y*points_shape[3+i].x + points_shape[1].y*(-points_shape[2+i].x + points_shape[3+i].x) + points_shape[1].x*(points_shape[2+i].y - points_shape[3+i].y) + points_shape[2+i].x*points_shape[3+i].y)

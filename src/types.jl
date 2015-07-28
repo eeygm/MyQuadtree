@@ -6,7 +6,6 @@ export Rectangle,
 type Shape
     ##Use UNION to make Float and Int together if necessary
     bounds::Array{Float64, 2}
-    #rect::Rectangle
     function Shape(bounds::Array{Int64, 2})
         new(convert(Array{Float64,2}, bounds))
     end
@@ -26,7 +25,6 @@ type Quadtree
     y0
     x1
     y1
-    shape::Shape
     objects::Vector{Shape}
     ne::Quadtree
     nw::Quadtree
@@ -41,7 +39,6 @@ type Quadtree
             bounds[2],
             bounds[3],
             bounds[4],
-            Shape(bounds[1],bounds[2],bounds[3],bounds[4]),
             objects)
     end
 
@@ -51,27 +48,9 @@ type Quadtree
             y0,
             x1,
             y1,
-            Shape(x0, y0, x1-x0, y1-y0),
             objects)
     end
 
-    function Quadtree(bounds::(Int64,Int64,Int64,Int64),
-                        ne1::Quadtree,
-                        nw1::Quadtree,
-                        sw1::Quadtree,
-                        se1::Quadtree)
-        objects = Shape[]
-        new(bounds[1],
-            bounds[2],
-            bounds[3],
-            bounds[4],
-            Shape(bounds[1], bounds[2], bounds[3], bounds[4]),
-            objects,
-            ne1,
-            nw1,
-            sw1,
-            se1)
-    end
 end
 
 type Point
