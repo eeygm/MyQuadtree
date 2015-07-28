@@ -1,9 +1,8 @@
 module MyQuadtree
 
 export  insert!,
-        retrieve!,
-        list_of_objects
-
+        retrieve!
+        
 include("types.jl")
 include("functions/insert.jl")
 #include("functions/get_trace_index_shape.jl")

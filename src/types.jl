@@ -1,9 +1,8 @@
-export Rectangle,
-        Shape,
+export  Shape,
         Quadtree,
         Point
 
-type Shape
+immutable Shape
     ##Use UNION to make Float and Int together if necessary
     bounds::Array{Float64, 2}
     function Shape(bounds::Array{Int64, 2})
