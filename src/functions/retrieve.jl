@@ -1,7 +1,6 @@
 function retrieve!(quad::Quadtree, shape::Shape)
     global points_shape = Point[]
-    cont = 0
-    cont2 = 0
+    level = 0
     list_of_objects = Set{Shape}()
     global trace_index_fake_object = get_trace_index_shape(quad.rect, shape)
 
@@ -9,18 +8,6 @@ function retrieve!(quad::Quadtree, shape::Shape)
         push!(points_shape, Point(shape.bounds[i,:]))
     end
     push!(points_shape, Point(shape.bounds[1,:]))
-
-    ## If it's a line, make it a triangle
-    #=
-    if length(shape.bounds[:,1]) == 2
-        array_aux_x = line_test.bounds[:,1]
-        array_aux_y = line_test.bounds[:,2]
-        push!(array_aux_x, minimum(array_aux_x))
-        push!(array_aux_y, minimum(array_aux_y)+1)
-        array_aux = [array_aux_x array_aux_y]
-        shape = Shape(array_aux)
-    end
-    =#
 
     function retrieve_inside!(quad::Quadtree, shape::Shape)
         ## Get all the objects in that level
@@ -42,26 +29,26 @@ function retrieve!(quad::Quadtree, shape::Shape)
             # Test whether half-quad is inside the shape_test
             # if [ s>=0 && t>=0 && 1-s-t>=0 ] then it is inside
             if s>=0 && t>=0 && 1-s-t>=0
-                if cont <= max_level_quadtree[1]
+                if level <= max_level_quadtree[1]
                     if isdefined(quad, :ne)
-                        cont += 1
+                        level += 1
                         retrieve_inside!(quad.ne, shape)
-                        cont -= 1
+                        level -= 1
                     end
                     if isdefined(quad, :nw)
-                        cont += 1
+                        level += 1
                         retrieve_inside!(quad.nw, shape)
-                        cont -= 1
+                        level -= 1
                     end
                     if isdefined(quad, :sw)
-                        cont += 1
+                        level += 1
                         retrieve_inside!(quad.sw, shape)
-                        cont -= 1
+                        level -= 1
                     end
                     if isdefined(quad, :se)
-                        cont += 1
+                        level += 1
                         retrieve_inside!(quad.se, shape)
-                        cont -= 1
+                        level -= 1
                     end
                 end
             end
@@ -71,30 +58,30 @@ function retrieve!(quad::Quadtree, shape::Shape)
         for i = 0:0
             if isdefined(quad, :ne)
                 if isinside(quad.ne.rect, points_shape)
-                    cont += 1
+                    level += 1
                     retrieve_inside!(quad.ne, shape)
-                    cont -= 1
+                    level -= 1
                 end
             end
             if isdefined(quad, :nw)
                 if isinside(quad.nw.rect, points_shape)
-                    cont += 1
+                    level += 1
                     retrieve_inside!(quad.nw, shape)
-                    cont -= 1
+                    level -= 1
                 end
             end
             if isdefined(quad, :sw)
                 if isinside(quad.sw.rect, points_shape)
-                    cont += 1
+                    level += 1
                     retrieve_inside!(quad.sw, shape)
-                    cont -= 1
+                    level -= 1
                 end
             end
             if isdefined(quad, :se)
                 if isinside(quad.se.rect, points_shape)
-                    cont += 1
+                    level += 1
                     retrieve_inside!(quad.se, shape)
-                    cont -= 1
+                    level -= 1
                 end
             end
         end
