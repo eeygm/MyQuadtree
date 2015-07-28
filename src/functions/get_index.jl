@@ -1,4 +1,4 @@
-function get_index(quad::Rectangle, shape::Shape)
+function get_index(quad::Quadtree, shape::Shape)
     x_max = maximum(shape.bounds[:,1])
     y_max = maximum(shape.bounds[:,2])
     x_min = minimum(shape.bounds[:,1])

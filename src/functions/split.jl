@@ -1,34 +1,42 @@
-function split!(quad::Rectangle, index::Int64)
+function split!(quad::Quadtree, index::Int64)
     global level
 
     if index == 1
-        rect = Rectangle((quad.x1 + quad.x0) / 2,
-                        (quad.y0),
-                        (quad.x1 - quad.x0) / 2,
-                        (quad.y1 - quad.y0) / 2)
+        output = [
+                    ((quad.x1 + quad.x0) / 2),
+                    (quad.y0),
+                    (quad.x1 - quad.x0) / 2,
+                    (quad.y1 - quad.y0) / 2
+                ]*1.0
     end
     if index == 2
-        rect = Rectangle((quad.x0),
-                        (quad.y0),
-                        (quad.x1 - quad.x0) / 2,
-                        (quad.y1 - quad.y0) / 2)
+        output = [
+                    (quad.x0),
+                    (quad.y0),
+                    (quad.x1 - quad.x0) / 2,
+                    (quad.y1 - quad.y0) / 2
+                ]*1.0
     end
     if index == 3
-        rect = Rectangle((quad.x0),
-                        (quad.y1 + quad.y0) / 2,
-                        (quad.x1 - quad.x0) / 2,
-                        (quad.y1 - quad.y0) / 2)
+        output = [
+                    (quad.x0),
+                    (quad.y1 + quad.y0) / 2,
+                    (quad.x1 - quad.x0) / 2,
+                    (quad.y1 - quad.y0) / 2
+                ]*1.0
     end
     if index == 4
-        rect = Rectangle((quad.x1 + quad.x0) / 2,
-                        (quad.y1 + quad.y0) / 2,
-                        (quad.x1 - quad.x0) / 2,
-                        (quad.y1 - quad.y0) / 2)
+        output = [
+                    (quad.x1 + quad.x0) / 2,
+                    (quad.y1 + quad.y0) / 2,
+                    (quad.x1 - quad.x0) / 2,
+                    (quad.y1 - quad.y0) / 2
+                ]*1.0
     end
 
     if index == -1
         return
     end
 
-    return rect
+    return output
 end

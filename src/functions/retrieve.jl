@@ -2,7 +2,7 @@ function retrieve!(quad::Quadtree, shape::Shape)
     global points_shape = Point[]
     level = 0
     list_of_objects = Set{Shape}()
-    global trace_index_fake_object = get_trace_index_shape(quad.rect, shape)
+    #global trace_index_fake_object = get_trace_index_shape(quad.rect, shape)
 
     for i = 1:length(shape.bounds[:,1])
         push!(points_shape, Point(shape.bounds[i,:]))
@@ -57,28 +57,28 @@ function retrieve!(quad::Quadtree, shape::Shape)
         ## Test whether the shape has points inside the quad
         for i = 0:0
             if isdefined(quad, :ne)
-                if isinside(quad.ne.rect, points_shape)
+                if isinside(quad.ne, points_shape)
                     level += 1
                     retrieve_inside!(quad.ne, shape)
                     level -= 1
                 end
             end
             if isdefined(quad, :nw)
-                if isinside(quad.nw.rect, points_shape)
+                if isinside(quad.nw, points_shape)
                     level += 1
                     retrieve_inside!(quad.nw, shape)
                     level -= 1
                 end
             end
             if isdefined(quad, :sw)
-                if isinside(quad.sw.rect, points_shape)
+                if isinside(quad.sw, points_shape)
                     level += 1
                     retrieve_inside!(quad.sw, shape)
                     level -= 1
                 end
             end
             if isdefined(quad, :se)
-                if isinside(quad.se.rect, points_shape)
+                if isinside(quad.se, points_shape)
                     level += 1
                     retrieve_inside!(quad.se, shape)
                     level -= 1
@@ -94,11 +94,11 @@ function retrieve!(quad::Quadtree, shape::Shape)
     return list_of_objects
 end
 
-function isinside(rect::Rectangle, points::Vector{Point})
+function isinside(quad::Quadtree, points::Vector{Point})
     ## Test whether the shape has points inside the quad
     for i=1:length(points)
-        xxx = points[i].x > rect.x0 && points[i].x < rect.x1
-        yyy = points[i].y > rect.y0 && points[i].y < rect.y1
+        xxx = points[i].x > quad.x0 && points[i].x < quad.x1
+        yyy = points[i].y > quad.y0 && points[i].y < quad.y1
 
         if xxx && yyy
             return true
@@ -106,10 +106,10 @@ function isinside(rect::Rectangle, points::Vector{Point})
     end
 
     ## Test line intersections
-    l = rect.x0
-    r = rect.x1
-    t = rect.y0
-    b = rect.y1
+    l = quad.x0
+    r = quad.x1
+    t = quad.y0
+    b = quad.y1
     for i=1:length(points)-1
         x1 = points_shape[i].x
         y1 = points_shape[i].y

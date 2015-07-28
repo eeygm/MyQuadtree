@@ -6,7 +6,7 @@ export  insert!,
 
 include("types.jl")
 include("functions/insert.jl")
-include("functions/get_trace_index_shape.jl")
+#include("functions/get_trace_index_shape.jl")
 include("functions/split.jl")
 include("functions/get_index.jl")
 include("functions/retrieve.jl")

@@ -37,7 +37,7 @@ triangle_test   = Shape([40 140; 70 140; 60 70])
 
 ## Insert random objects inside the tree and retrieve them
 const MAX_SIZE = 5
-k = 1
+k = 2
 shapes_test = Array(Shape, 10^k)
 
 @time for i = 1:10^k
@@ -63,7 +63,7 @@ end
 println(@time length(retrieve!(quad, shape_big)))
 println(@time length(retrieve!(quad, triangle_test)))
 println(@time length(retrieve!(quad, line_test)))
-println(@time length(retrieve!(quad, shape33333))) ##ERROR
+println(@time length(retrieve!(quad, shape33333)))
 println(@time length(retrieve!(quad, point_test)))
 
 nothing

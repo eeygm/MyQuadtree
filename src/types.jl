@@ -3,19 +3,6 @@ export Rectangle,
         Quadtree,
         Point
 
-immutable Rectangle
-    x0::Real
-    y0::Real
-    width::Real
-    height::Real
-    x1::Real
-    y1::Real
-
-    function Rectangle(x0::Real, y0::Real, width::Real, height::Real)
-        new(x0, y0, width, height, x0+width, y0+height)
-    end
-end
-
 type Shape
     ##Use UNION to make Float and Int together if necessary
     bounds::Array{Float64, 2}
@@ -26,8 +13,8 @@ type Shape
     function Shape(bounds::Array{Float64, 2})
         new(convert(Array{Float64,2}, bounds))
     end
-    function Shape(bounds::Rectangle)
-        new([bounds.x0 bounds.y0; bounds.x0 bounds.y1; bounds.x1 bounds.y1; bounds.x1 bounds.y0])
+    function Shape(x0::Real, y0::Real, x1::Real, y1::Real)
+        new([x0 y0; x0 y1; x1 y1; x1 y0])
     end
 end
 
@@ -39,7 +26,6 @@ type Quadtree
     y0
     x1
     y1
-    rect::Rectangle
     shape::Shape
     objects::Vector{Shape}
     ne::Quadtree
@@ -49,23 +35,42 @@ type Quadtree
 
     local objects
 
-    function Quadtree(bounds::Rectangle)
+    function Quadtree(bounds::Vector{Float64})
         objects = Shape[]
-        new(bounds.x0, bounds.y0, bounds.x0 + bounds.width, bounds.y0 + bounds.height, bounds, Shape(bounds), objects)
+        new(bounds[1],
+            bounds[2],
+            bounds[3],
+            bounds[4],
+            Shape(bounds[1],bounds[2],bounds[3],bounds[4]),
+            objects)
     end
 
     function Quadtree(x0::Int64, y0::Int64, x1::Int64, y1::Int64)
         objects = Shape[]
-        new(x0,y0,x1,y1,Rectangle(x0,y0,x1-x0,y1-y0),Shape(Rectangle(x0,y0,x1-x0,y1-y0)), objects)
+        new(x0,
+            y0,
+            x1,
+            y1,
+            Shape(x0, y0, x1-x0, y1-y0),
+            objects)
     end
 
-    function Quadtree(bounds::Rectangle,
+    function Quadtree(bounds::(Int64,Int64,Int64,Int64),
                         ne1::Quadtree,
                         nw1::Quadtree,
                         sw1::Quadtree,
                         se1::Quadtree)
         objects = Shape[]
-        new(bounds.x0, bounds.y0, bounds.x0 + bounds.width, bounds.y0 + bounds.height, bounds, Shape(rect), objects, ne1, nw1, sw1, se1)
+        new(bounds[1],
+            bounds[2],
+            bounds[3],
+            bounds[4],
+            Shape(bounds[1], bounds[2], bounds[3], bounds[4]),
+            objects,
+            ne1,
+            nw1,
+            sw1,
+            se1)
     end
 end
 
