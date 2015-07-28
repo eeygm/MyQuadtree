@@ -37,7 +37,7 @@ triangle_test   = Shape([40 140; 70 140; 60 70])
 
 ## Insert random objects inside the tree and retrieve them
 const MAX_SIZE = 5
-k = 2
+k = 5
 shapes_test = Array(Shape, 10^k)
 
 @time for i = 1:10^k

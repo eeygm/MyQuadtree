@@ -2,7 +2,6 @@ function retrieve!(quad::Quadtree, shape::Shape)
     global points_shape = Point[]
     level = 0
     list_of_objects = Set{Shape}()
-    #global trace_index_fake_object = get_trace_index_shape(quad.rect, shape)
 
     for i = 1:length(shape.bounds[:,1])
         push!(points_shape, Point(shape.bounds[i,:]))
