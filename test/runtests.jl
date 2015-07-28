@@ -1,4 +1,4 @@
-using MyQuadtree
+using Quadtree
 #using Base.Test
 
 ## Quadtree used
