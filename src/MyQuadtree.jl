@@ -1,4 +1,4 @@
-module Quadtree
+module MyQuadtree
 
 export  Rectangle,
         Shape,
