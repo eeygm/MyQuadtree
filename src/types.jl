@@ -1,3 +1,4 @@
+import  Base: ==
 export  Shape,
         Quadtree,
         Point
@@ -20,10 +21,10 @@ end
 ==(a::Shape, b::Shape) = a.bounds == b.bounds
 
 type Quadtree
-    x0
-    y0
-    x1
-    y1
+    x0::Real
+    y0::Real
+    x1::Real
+    y1::Real
     objects::Vector{Shape}
     ne::Quadtree
     nw::Quadtree

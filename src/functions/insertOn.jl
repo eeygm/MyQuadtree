@@ -1,4 +1,4 @@
-function insert!(quad::Quadtree, shape::Shape, level::Int64 = 0)
+function insertOn!(quad::Quadtree, shape::Shape, level::Int64 = 0)
     index = get_index(quad, shape)
 
     if(index == 1)
@@ -6,28 +6,28 @@ function insert!(quad::Quadtree, shape::Shape, level::Int64 = 0)
             quad.ne = Quadtree(split!(quad, index))
         end
         level += 1
-        insert!(quad.ne, shape, level)
+        insertOn!(quad.ne, shape, level)
 
     elseif(index == 2)
         if(!isdefined(quad, :nw))
             quad.nw = Quadtree(split!(quad, index))
         end
         level += 1
-        insert!(quad.nw, shape, level)
+        insertOn!(quad.nw, shape, level)
 
     elseif(index == 3)
         if(!isdefined(quad, :sw))
             quad.sw = Quadtree(split!(quad, index))
         end
         level += 1
-        insert!(quad.sw, shape, level)
+        insertOn!(quad.sw, shape, level)
 
     elseif(index == 4)
         if(!isdefined(quad, :se))
             quad.se = Quadtree(split!(quad, index))
         end
         level += 1
-        insert!(quad.se, shape, level)
+        insertOn!(quad.se, shape, level)
 
     else
         push!(quad.objects, shape)
@@ -36,5 +36,4 @@ function insert!(quad::Quadtree, shape::Shape, level::Int64 = 0)
         return quad.objects
     end
 
-    return nothing
 end

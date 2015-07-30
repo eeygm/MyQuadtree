@@ -1,6 +1,6 @@
 function retrieve!(quad::Quadtree, shape::Shape)
     global points_shape = Point[]
-    level = 0
+    level::Int64 = 0
     list_of_objects = Set{Shape}()
 
     for i = 1:length(shape.bounds[:,1])
@@ -9,6 +9,10 @@ function retrieve!(quad::Quadtree, shape::Shape)
     push!(points_shape, Point(shape.bounds[1,:]))
 
     function retrieve_inside!(quad::Quadtree, shape::Shape)
+        Area = Float64
+        s = Float64
+        t = Float64
+
         ## Get all the objects in that level
         for i = 1:length(quad.objects)
             push!(list_of_objects, quad.objects[i])
@@ -54,38 +58,36 @@ function retrieve!(quad::Quadtree, shape::Shape)
         end
 
         ## Test whether the shape has points inside the quad
-        for i = 0:0
-            if isdefined(quad, :ne)
-                if isinside(quad.ne, points_shape)
-                    level += 1
-                    retrieve_inside!(quad.ne, shape)
-                    level -= 1
-                end
+        if isdefined(quad, :ne)
+            if isinside(quad.ne, points_shape)
+                level += 1
+                retrieve_inside!(quad.ne, shape)
+                level -= 1
             end
-            if isdefined(quad, :nw)
-                if isinside(quad.nw, points_shape)
-                    level += 1
-                    retrieve_inside!(quad.nw, shape)
-                    level -= 1
-                end
+        end
+        if isdefined(quad, :nw)
+            if isinside(quad.nw, points_shape)
+                level += 1
+                retrieve_inside!(quad.nw, shape)
+                level -= 1
             end
-            if isdefined(quad, :sw)
-                if isinside(quad.sw, points_shape)
-                    level += 1
-                    retrieve_inside!(quad.sw, shape)
-                    level -= 1
-                end
+        end
+        if isdefined(quad, :sw)
+            if isinside(quad.sw, points_shape)
+                level += 1
+                retrieve_inside!(quad.sw, shape)
+                level -= 1
             end
-            if isdefined(quad, :se)
-                if isinside(quad.se, points_shape)
-                    level += 1
-                    retrieve_inside!(quad.se, shape)
-                    level -= 1
-                end
+        end
+        if isdefined(quad, :se)
+            if isinside(quad.se, points_shape)
+                level += 1
+                retrieve_inside!(quad.se, shape)
+                level -= 1
             end
         end
 
-        return nothing
+        return
 
     end
 

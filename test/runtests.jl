@@ -27,17 +27,18 @@ triangle_test   = Shape([40 140; 70 140; 60 70])
 #insert!(quad, shape31422) ##                          [61 101; 61 104; 64 101; 64 104]
 #insert!(quad, shape3333)  ## quad.sw.sw.sw.sw.objects [1 159;  1 151;  9 159;  9 151]
 #insert!(quad, shape3143)  ## quad.sw.ne.se.sw.objects [61 111; 61 119; 69 111; 69 119]
-#insert!(quad, shape3)     ## quad.sw.objects          [10 90;  70 90;  10 150; 70 150]
+#insertOn!(quad, shape3)     ## quad.sw.objects          [10 90;  70 90;  10 150; 70 150]
 #insert!(quad, shape1)
 #insert!(quad, shape111)
 #insert!(quad, shape12)
 #insert!(quad, triangle_test)
 #insert!(quad, shape_big)
 
+
 ## Insert random objects inside the tree and retrieve them
 const MAX_SIZE = 5
-k = 0.5
-number_of_objects = 4
+k = 5
+number_of_objects = 10^k
 shapes_test = Array(Shape, number_of_objects)
 
 @time for i = 1:number_of_objects
@@ -57,13 +58,9 @@ shapes_test = Array(Shape, number_of_objects)
 end
 
 @time for i = 1:number_of_objects
-    MyQuadtree.insert!(quad, shapes_test[i])
+    insertOn!(quad, shapes_test[i])
 end
 
-println(@time length(retrieve!(quad, shape_big)))
-println(@time length(retrieve!(quad, triangle_test)))
-println(@time retrieve!(quad, line_test))
-println(@time length(retrieve!(quad, shape33333)))
-println(@time length(retrieve!(quad, point_test)))
+@time o = retrieve!(quad, triangle_test)
 
-nothing
+return
